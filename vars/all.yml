@@ -1,0 +1,21 @@
+---
+docker_users:
+  - ubuntu
+  - testuser
+
+# General stuff
+server_url: "{{ ansible_host }}" 
+gmail_email: whatever@gmail.com
+docker_nginxtest_dir: /opt/docker/nginxtest
+
+# Docker installation
+# Variables for geerlingguy/ansible-role-docker
+docker_compose_version: "1.29.2"
+docker_compose_path: /usr/local/bin/docker-compose
+
+# Nginx & Certbot specific
+# Your e-mail address. Used by Let's Encrypt to contact you in case of security issues.
+nginx_certbot_image: jonasal/nginx-certbot:2.4.0-alpine
+certbot_email: till.gartner@gmail.com
+certbot_use_local_ca: 0
+certbot_debug: 0

@@ -1,0 +1,101 @@
+---
+- hosts: server
+  become: yes
+  tasks:
+  - name: Run apt update
+    apt:
+      update_cache: yes
+  - name: Remove useless packages from the cache
+    apt:
+      autoclean: yes
+  - name: Remove dependencies that are no longer required
+    apt:
+      autoremove: yes
+
+# Install the requirements on server
+- hosts: server
+  become: yes
+  vars:
+    pip_install_packages:
+      - name: docker
+      - name: docker-compose
+  vars_files:
+  - [ "vars/all.yml", "vars/{{ env }}.yml" ]
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+
+# Install the docker-compose deployments
+- hosts: server
+  tags: deploy
+  become: yes
+  vars_files:
+    - [ "vars/all.yml", "vars/{{ env }}.yml" ]
+
+  tasks:
+    - name: Create docker/nginxtest directory
+      file:
+        path: "{{ docker_nginxtest_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0777
+
+    - name: Copy docker-compose file (template based)
+      template:
+        src: files/docker-compose.yml
+        dest: "{{ docker_nginxtest_dir }}/"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Copy nginx user conf.d directory
+      copy:
+        src: files/nginx_user_conf.d/
+        dest: "{{ docker_nginxtest_dir }}/nginx_user_conf.d"
+
+    - name: Copy nginx_yourdomain.conf (template based)
+      template:
+        src: files/nginx_user_conf_templates/nginx_yourdomain.conf
+        dest: "{{ docker_nginxtest_dir }}/nginx_user_conf.d/{{ server_url }}.conf"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Copy nginx_vouch.yourdomain.conf (template based)
+      template:
+        src: files/nginx_user_conf_templates/nginx_vouch.yourdomain.conf
+        dest: "{{ docker_nginxtest_dir }}/nginx_user_conf.d/vouch.{{ server_url }}.conf"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Copy nginx html directory
+      copy:
+        src: files/nginx_html/
+        dest: "{{ docker_nginxtest_dir }}/nginx_html"
+
+    - name: Copy vouch config file (template based)
+      template:
+        src: files/vouch.config/config.yml
+        dest: "{{ docker_nginxtest_dir }}/vouch.config/config/config.yml"
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Create and start services
+      community.docker.docker_compose: 
+        state: present
+        # This must be set to no, otherwise the mysql 
+        # docker will not execute the create_user.sql
+        restarted: no  
+        project_src: "{{ docker_nginxtest_dir }}/"
+        build: yes
+        debug: yes
+        remove_orphans: yes
+      register: output
+      when: "'no_run' not in ansible_run_tags"
+
+    - ansible.builtin.debug:
+        var: output
+

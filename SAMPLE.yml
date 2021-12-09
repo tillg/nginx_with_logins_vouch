@@ -1,0 +1,11 @@
+server:
+  hosts:
+    server: 
+      env: SAMPLE
+      ansible_host: yourserver.com
+      ansible_sudo_pass: secret 
+      ansible_connection: ssh 
+      ansible_user: ubuntu 
+      ansible_python_interpreter: /usr/bin/python3 
+      google_client_id: xyz
+      google_client_secret: GOX-XYZ

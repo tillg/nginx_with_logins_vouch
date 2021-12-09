@@ -1,0 +1,28 @@
+# Vouch Proxy configuration
+# bare minimum to get Vouch Proxy running with google
+
+vouch:
+  domains:
+  #- {{ server_url }}
+
+  # set allowAllUsers: true to use Vouch Proxy to just accept anyone who can authenticate at Gitea
+  allowAllUsers: true
+
+  cookie:
+    # allow the jwt/cookie to be set into http://yourdomain.com (defaults to true, requiring https://yourdomain.com) 
+    secure: false
+    # vouch.cookie.domain must be set when enabling allowAllUsers
+    domain: {{ server_url }}
+
+
+oauth:
+  provider: google
+  # get credentials from...
+  # https://console.developers.google.com/apis/credentials
+  client_id: {{ google_client_id }}
+  client_secret: {{ google_client_secret }}
+  # Google may require callbac_urls (redirect URIs) to be 'https'
+  callback_urls: 
+    - https://vouch.{{ server_url }}/auth
+  #preferredDomain: {{ server_url }} # be careful with this option, it may conflict with chrome on Android 
+  # endpoints are set from https://godoc.org/golang.org/x/oauth2/google

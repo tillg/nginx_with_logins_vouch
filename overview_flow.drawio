@@ -1,0 +1,25 @@
+<mxfile host="65bd71144e">
+    <diagram id="6WFgkAJm9AvUWJuVEWJp" name="Page-1">
+        <mxGraphModel dx="894" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="3" value="nginx" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="170" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="vouch" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="170" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="endArrow=classic;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" target="3">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="150" y="20" as="sourcePoint"/>
+                        <mxPoint x="320" y="370" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="10" value="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;verticalAlign=middle;" parent="1" vertex="1">
+                    <mxGeometry x="135" y="80" width="30" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
