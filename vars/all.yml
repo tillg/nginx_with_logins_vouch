@@ -15,7 +15,7 @@ docker_compose_path: /usr/local/bin/docker-compose
 
 # Nginx & Certbot specific
 # Your e-mail address. Used by Let's Encrypt to contact you in case of security issues.
-nginx_certbot_image: jonasal/nginx-certbot:2.4.0-alpine
+nginx_certbot_image: jonasal/nginx-certbot:2.4.1-alpine
 certbot_email: till.gartner@gmail.com
 certbot_use_local_ca: 0
 certbot_debug: 0

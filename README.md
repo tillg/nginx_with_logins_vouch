@@ -2,6 +2,9 @@
 
 A demo setup for having restricted access to web-sites or specific paths within a website based on nginx. `docker-composed` based and deployed via Ansible.
 
+The behavior we want to achieve:
+* Documents camn be public, in our case: https://nginxtest.grtnr.io
+* Documents can be _secret_, i.e. only accessible after having logged in with google (any google account will do): https://nginxtest.grtnr.io/secret/ 
 ## Overall setup
 
 ![Setup](overview_components.png)

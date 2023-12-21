@@ -3,10 +3,10 @@
 
 vouch:
   domains:
-  #- {{ server_url }}
+  - {{ server_url }}
 
   # set allowAllUsers: true to use Vouch Proxy to just accept anyone who can authenticate at Gitea
-  allowAllUsers: true
+  #allowAllUsers: true
 
   cookie:
     # allow the jwt/cookie to be set into http://yourdomain.com (defaults to true, requiring https://yourdomain.com) 

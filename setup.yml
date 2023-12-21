@@ -75,6 +75,14 @@
         src: files/nginx_html/
         dest: "{{ docker_nginxtest_dir }}/nginx_html"
 
+    - name: Create directory for vouch config file
+      file:
+        path: "{{ docker_nginxtest_dir }}/vouch.config/config"
+        state: directory
+        owner: root
+        group: root
+        mode: 0777
+
     - name: Copy vouch config file (template based)
       template:
         src: files/vouch.config/config.yml
